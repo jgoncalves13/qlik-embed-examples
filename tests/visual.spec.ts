@@ -60,7 +60,7 @@ test('Visual regression - solo-classic-app', async ({ page }, testInfo) => {
 });
 
 test('Visual regression - solo-analytics-sheet-selections', async ({ page }, testInfo) => {
-  await page.goto('solo-analytics-snapshot.html');
+  await page.goto('solo-analytics-sheet-selections.html');
   // Wait for the main header to appear
   await expect(page.locator('h1')).toHaveText('analytics/sheet and analytics/selections via qlik/embed-web-components and refApi');
   // Wait for the qlik-embed element with data-testid to be present
