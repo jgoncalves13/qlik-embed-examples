@@ -93,7 +93,7 @@ test('Visual regression - solo-analytics-sheet-selections', async ({ page }, tes
 
     // Wait another moment for good measure/ slow compute
     // Not good practice, but necessary for some slow environments
-    await page.waitForTimeout(1500);
+    await page.waitForTimeout(3000);
 
     // Take a screenshot and compare with a snapshot for this option
     const screenshot = await page.locator('.main-container').screenshot();
