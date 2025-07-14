@@ -10,6 +10,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Ensure visual.spec.ts-snapshots directory exists
+        run: mkdir -p tests/visual.spec.ts-snapshots
+
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
