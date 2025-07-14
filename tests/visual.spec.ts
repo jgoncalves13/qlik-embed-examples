@@ -84,10 +84,17 @@ test('Visual regression - solo-analytics-sheet-selections', async ({ page }, tes
     if (!value || value === selectedValue) continue;
     // Select the option
     await dropdown.selectOption(value);
-    // Wait for the sheetEmbed to be visible and network idle
+    // Wait for the sheetEmbed to be visible
     const sheetEmbed = page.locator('[data-testid="sheetEmbed"]');
     await expect(sheetEmbed).toBeVisible({ timeout: 10000 });
+
+    // Wait until there are no ongoing network requests (network idle)
     await page.waitForLoadState('networkidle');
+
+    // Wait another moment for good measure/ slow compute
+    // Not good practice, but necessary for some slow environments
+    await page.waitForTimeout(1500);
+
     // Take a screenshot and compare with a snapshot for this option
     const screenshot = await page.locator('.main-container').screenshot();
     expect(screenshot).toMatchSnapshot(`solo-analytics-sheet-selections-${value}.png`);
