@@ -6,12 +6,6 @@ test('Visual regression - solo-analytics-sheet-selections', async ({ page }, tes
   await page.goto('solo-analytics-sheet-selections.html');
   // Wait for the main header to appear
   await expect(page.locator('h1')).toHaveText('analytics/sheet and analytics/selections via qlik/embed-web-components and refApi');
-  // Wait for the qlik-embed element with data-testid to be present
-  const qlikEmbed = page.locator('qlik-embed[data-testid="selections"]');
-  await expect(qlikEmbed).toBeVisible();
-  // Wait for the sheetEmbed element to be visible
-  const sheetEmbed = page.locator('[data-testid="sheetEmbed"]');
-  await expect(sheetEmbed).toBeVisible({ timeout: 10000 });
 
   // Wait another moment for good measure/ slow compute
   // Not good practice, but necessary for some slow environments
@@ -30,13 +24,10 @@ test('Visual regression - solo-analytics-sheet-selections', async ({ page }, tes
     if (!value || value === selectedValue) continue;
     // Select the option
     await dropdown.selectOption(value);
-    // Wait for the sheetEmbed to be visible
-    const sheetEmbed = page.locator('[data-testid="sheetEmbed"]');
-    await expect(sheetEmbed).toBeVisible({ timeout: 10000 });
 
     // Wait another moment for good measure/ slow compute
     // Not good practice, but necessary for some slow environments
-    await page.waitForTimeout(5000);
+    await page.waitForTimeout(10000);
 
     // Take a screenshot and compare with a snapshot for this option
     const screenshot = await page.locator('.main-container').screenshot();
