@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Mi Qlik App embebida</title>
+  <script
+    crossorigin="anonymous"
+    type="application/javascript"
+    src="https://cdn.jsdelivr.net/npm/@qlik/embed-web-components@1/dist/index.min.js"
+    data-host="https://keyruspt.eu.qlikcloud.com"
+    data-access-token-storage="session"
+  ></script>
+</head>
+<body>
+  <h1>Mi aplicación Qlik Sense Cloud</h1>
+
+  <div style="height:600px;width:100%">
+    <qlik-embed
+      ui="classic/app"
+      app-id="40de9651-2036-42be-a6e0-86ec38362ad0"
+    ></qlik-embed>
+  </div>
+
+  <script>
+    async function init() {
+      try {
+        // Pide token a tu backend (ej: Vercel o servidor propio)
+        const resp = await fetch("https://qlik-backend.vercel.app/api/access-token");
+        const { access_token } = await resp.json();
+
+        // Inyecta el token en el embed
+        const embedEl = document.querySelector("qlik-embed");
+        embedEl.setAttribute("data-access-token", access_token);
+      } catch (err) {
+        console.error("Error obteniendo token:", err);
+      }
+    }
+    init();
+  </script>
+</body>
+</html>
